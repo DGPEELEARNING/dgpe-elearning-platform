@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Module – DGPE</title>
   <link rel="stylesheet" href="./style.css">
+  <!-- Supabase JS Library -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 
@@ -15,7 +16,7 @@
   <div class="wrap">
     <div class="logo-group">
       <div class="logo-wrapper">
-        <img src="./assets/img/DGPE_logo.png" class="logo" alt="DGPE">
+        <img src="./assets/img/dgpe-logo.png" class="logo" alt="DGPE">
       </div>
       <span class="brand">e-Learning</span>
     </div>
@@ -40,13 +41,10 @@
 
 <!-- ================= CONTENU ================= -->
 <section class="wrap" style="padding:50px 0">
-
   <div class="panel" id="moduleCard">
     <h2 id="moduleTitle"></h2>
-
     <p><strong>Domaine :</strong> <span id="moduleDomaine"></span></p>
     <p><strong>Durée :</strong> <span id="moduleDuree"></span></p>
-
     <p id="moduleResume" style="margin-top:10px;"></p>
 
     <button class="btn btn-primary" onclick="inscrireModule()">
@@ -55,7 +53,6 @@
 
     <div id="message" style="margin-top:20px;font-weight:bold"></div>
   </div>
-
 </section>
 
 <footer class="footer">
@@ -63,18 +60,18 @@
 </footer>
 
 <script>
-// ================= SUPABASE =================
+// ================= Supabase Initialization =================
 const supabaseUrl = "https://yshmhrsartwjctbpevup.supabase.co";
-const supabaseKey = "sb_publishable_Pf0iAehofCt4_VpHddUcWQ_rdxhfeEh";
-const supabase = createClient(supabaseUrl, supabaseKey); // Cette ligne est maintenant correcte
+const supabaseKey = "sb_publishable_Pf0iAehofCt4_VpHddUcWQ_rdxhfeEh"; // Ne pas utiliser pour les actions sensibles, utilisez une clé secrète dans un backend sécurisé
+const supabase = window.supabase.createClient(supabaseUrl, supabaseKey); // Correct initialization
 
-// ================= ID MODULE =================
+// ================= MODULE ID =================
 const params = new URLSearchParams(window.location.search);
 const moduleId = params.get("id");
 
 let moduleActuel = null;
 
-// ================= CHARGEMENT MODULE =================
+// ================= CHARGEMENT DU MODULE =================
 async function chargerModule() {
   if (!moduleId) {
     document.getElementById("moduleCard").innerHTML = "❌ Aucun module sélectionné";
@@ -104,7 +101,7 @@ async function chargerModule() {
 
 chargerModule();
 
-// ================= INSCRIPTION SÉCURISÉE =================
+// ================= INSCRIPTION =================
 async function inscrireModule() {
   const { data: userData } = await supabase.auth.getUser();
 
@@ -115,7 +112,7 @@ async function inscrireModule() {
 
   const userId = userData.user.id;
 
-  // ✅ Vérification anti-double inscription
+  // Vérification anti-double inscription
   const { data: existant } = await supabase
     .from("inscriptions")
     .select("id")
@@ -149,4 +146,3 @@ async function inscrireModule() {
 
 </body>
 </html>
-
