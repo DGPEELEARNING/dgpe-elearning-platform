@@ -4,16 +4,21 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Connexion – DGPE</title>
-  <link rel="stylesheet" href="./style.css">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/DGPE_GITHUB_PAGES_READY/style.css">
 </head>
 
 <body class="login-page">
 
-<!-- ================= NAVBAR ================= -->
+<!-- ================= NAVBAR LOGIN ================= -->
 <div class="navbar-login">
   <div class="wrap">
     <div class="logo-group">
-      <img src="./assets/img/dgpe-Logo.png" class="logo" alt="DGPE">
+      <img
+        src="/DGPE_GITHUB_PAGES_READY/actifs/img/dgpe-logo.png"
+        class="logo"
+        alt="DGPE">
       <span class="brand">e-Learning</span>
     </div>
   </div>
@@ -21,31 +26,48 @@
 
 <!-- ================= TITRE ================= -->
 <section class="hero" style="background:none;padding-top:60px;text-align:center">
-  <h1>Connexion</h1>
-  <p>Accédez à votre tableau de bord</p>
+  <div class="inner">
+    <h1>Connexion</h1>
+    <p>Accédez à votre tableau de bord</p>
+  </div>
 </section>
 
-<!-- ================= FORM ================= -->
+<!-- ================= FORMULAIRE ================= -->
 <div class="login-wrap">
   <div class="login-card">
+
     <h2>Accès plateforme</h2>
 
     <label>Email professionnel</label>
-    <input id="email" class="input" type="email"
-           placeholder="prenom.nom@societe.ci">
+    <input
+      id="email"
+      class="input"
+      type="email"
+      placeholder="prenom.nom@societe.ci">
 
     <label>Mot de passe</label>
-    <input id="password" class="input" type="password"
-           placeholder="••••••••">
+    <input
+      id="password"
+      class="input"
+      type="password"
+      placeholder="••••••••">
 
-    <button class="btn btn-primary" onclick="loginUser()">Connexion</button>
+    <button class="btn btn-primary" onclick="loginUser()">
+      Connexion
+    </button>
+
     <br><br>
-    <button class="btn btn-secondary" onclick="registerUser()">Créer un compte</button>
+
+    <button class="btn" onclick="registerUser()">
+      Créer un compte
+    </button>
+
   </div>
 </div>
 
+<!-- ================= FOOTER ================= -->
 <footer class="footer">
-© 2025 DGPE – Direction Générale du Portefeuille de l’État
+  © 2025 DGPE – Direction Générale du Portefeuille de l’État
 </footer>
 
 <!-- ================= POPUP ================= -->
@@ -61,7 +83,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
-/* ================= CONFIG ================= */
+/* ================= SUPABASE CONFIG ================= */
 const supabase = window.supabase.createClient(
   "https://yshmhrsartwjctbpevup.supabase.co",
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlzaG1ocnNhcnR3amN0YnBldnVwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjY1MDI0ODIsImV4cCI6MjA4MjA3ODQ4Mn0.JICMtNf_1VrRylm47qru0urIWQvO49JXMUbu10FHb1g"
@@ -73,20 +95,27 @@ function showPopup(title, message) {
   document.getElementById("popup-message").innerText = message;
   document.getElementById("popup-overlay").classList.remove("hidden");
 }
+
 function closePopup() {
   document.getElementById("popup-overlay").classList.add("hidden");
 }
 
-/* ================= EMAIL PRO ================= */
+/* ================= EMAIL PROFESSIONNEL ================= */
 function isEmailPro(email) {
-  const forbidden = ["@gmail.com","@yahoo.com","@hotmail.com","@outlook.com","@icloud.com"];
+  const forbidden = [
+    "@gmail.com",
+    "@yahoo.com",
+    "@hotmail.com",
+    "@outlook.com",
+    "@icloud.com"
+  ];
   return !forbidden.some(d => email.toLowerCase().endsWith(d));
 }
 
 /* ================= INSCRIPTION ================= */
 async function registerUser() {
-  const email = email.value.trim();
-  const password = password.value.trim();
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value.trim();
 
   if (!email || !password) {
     showPopup("Erreur", "Tous les champs sont obligatoires.");
@@ -94,8 +123,10 @@ async function registerUser() {
   }
 
   if (!isEmailPro(email)) {
-    showPopup("Email refusé",
-      "Veuillez utiliser un email professionnel de société.");
+    showPopup(
+      "Email refusé",
+      "Veuillez utiliser un email professionnel de société."
+    );
     return;
   }
 
@@ -104,7 +135,7 @@ async function registerUser() {
     password,
     options: {
       emailRedirectTo:
-        "https://dgpe-hub.github.io/DGPE-E-LEARNING-PLATFORM/login.html"
+        "https://dgpeelearning.github.io/DGPE_GITHUB_PAGES_READY/login.html"
     }
   });
 
@@ -123,15 +154,19 @@ async function loginUser() {
   const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value.trim();
 
-  const { error } = await supabase.auth.signInWithPassword({ email, password });
+  const { error } =
+    await supabase.auth.signInWithPassword({ email, password });
 
   if (error) {
-    showPopup("Connexion refusée",
-      "Compte inexistant ou email non confirmé.");
+    showPopup(
+      "Connexion refusée",
+      "Compte inexistant ou email non confirmé."
+    );
     return;
   }
 
-  window.location.href = "dashboard.html";
+  window.location.href =
+    "/DGPE_GITHUB_PAGES_READY/tableau de bord.html";
 }
 </script>
 
