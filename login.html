@@ -35,27 +35,38 @@
 
     <h2>Accès plateforme</h2>
 
-    <label for="email">Email professionnel</label>
-    <input
-      id="email"
-      class="input"
-      type="email"
-      placeholder="prenom.nom@societe.ci"
-      autocomplete="username">
+    <!-- ✅ FORM OBLIGATOIRE -->
+    <form id="login-form">
 
-    <label for="password">Mot de passe</label>
-    <input
-      id="password"
-      class="input"
-      type="password"
-      placeholder="••••••••"
-      autocomplete="current-password">
+      <label for="email">Email professionnel</label>
+      <input
+        id="email"
+        class="input"
+        type="email"
+        placeholder="prenom.nom@societe.ci"
+        required>
 
-    <button class="btn" onclick="loginUser()">Connexion</button>
+      <label for="password">Mot de passe</label>
+      <input
+        id="password"
+        class="input"
+        type="password"
+        placeholder="••••••••"
+        required>
 
-    <button class="btn" style="margin-top:12px" onclick="registerUser()">
-      Créer un compte
-    </button>
+      <button class="btn" type="submit">
+        Connexion
+      </button>
+
+      <button
+        type="button"
+        class="btn"
+        style="margin-top:12px"
+        onclick="registerUser()">
+        Créer un compte
+      </button>
+
+    </form>
 
   </div>
 </main>
@@ -141,21 +152,26 @@ async function registerUser() {
   }
 }
 
-/* ================= CONNEXION ================= */
-async function loginUser() {
+/* ================= CONNEXION (FORM SUBMIT) ================= */
+document.getElementById("login-form").addEventListener("submit", async function (e) {
+  e.preventDefault(); // ⛔ empêche le rechargement
+
   const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value.trim();
 
-  const { error } =
-    await supabase.auth.signInWithPassword({ email, password });
+  const { error } = await supabase.auth.signInWithPassword({
+    email,
+    password
+  });
 
   if (error) {
     showPopup("Connexion refusée", "Email ou mot de passe incorrect.");
     return;
   }
 
+  // ✅ REDIRECTION
   window.location.href = "dashboard.html";
-}
+});
 </script>
 
 </body>
