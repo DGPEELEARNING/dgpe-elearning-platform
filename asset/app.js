@@ -1,8 +1,8 @@
 /* =====================================================
    ✅ CONNEXION À SUPABASE
 ===================================================== */
-const supabaseUrl = "https://hrriedjmpwjfmfimqlmx.supabase.co";
-const supabaseKey = "sb_publishable_1AnZMUSy3A4X8xIrKJOKQw_cOX40j9V";
+const supabaseUrl = "https://yshmhrsartwjctbpevup.supabase.co";
+const supabaseKey = "https://yshmhrsartwjctbpevup.supabase.co";
 const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
 /* =====================================================
