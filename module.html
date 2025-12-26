@@ -66,7 +66,7 @@
 // ================= SUPABASE =================
 const supabaseUrl = "https://yshmhrsartwjctbpevup.supabase.co";
 const supabaseKey = "sb_publishable_Pf0iAehofCt4_VpHddUcWQ_rdxhfeEh";
-const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+const supabase = createClient(supabaseUrl, supabaseKey); // Cette ligne est maintenant correcte
 
 // ================= ID MODULE =================
 const params = new URLSearchParams(window.location.search);
