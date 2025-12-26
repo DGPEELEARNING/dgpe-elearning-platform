@@ -2,52 +2,45 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Détail du module – DGPE e-Learning</title>
-  <link rel="stylesheet" href="./style.css">
+  <title>Module – DGPE</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="navbar">
+
+<header class="navbar">
   <div class="wrap">
     <div class="logo-group">
-      <img src="./assets/DGPE_Logo.png" class="logo" alt="DGPE">
+      <img src="assets/img/dgpe-logo.png" class="logo">
       <span class="brand">e-Learning</span>
     </div>
     <nav class="nav">
-      <a href="index.html">Accueil</a>
       <a href="catalogue.html">Catalogue</a>
-      <a href="module.html">Module</a>
+      <a href="modules.html">Modules</a>
       <a href="dashboard.html">Dashboard</a>
-      <a href="administration.html">Administration</a>
-      <a href="login.html" class="pill">Connexion</a>
     </nav>
-    <button class="burger" aria-label="Menu"><span></span></button>
   </div>
-</div>
+</header>
 
-<aside class="offcanvas" aria-hidden="true">
-  <div class="close" aria-label="Fermer">✕</div>
-  <img src="./assets/DGPE_Logo.png" class="logo" alt="DGPE">
-  <div class="menu">
-    <a href="index.html">Accueil</a>
-    <a href="catalogue.html">Catalogue</a>
-    <a href="module.html">Module</a>
-    <a href="dashboard.html">Dashboard</a>
-    <a href="administration.html">Administration</a>
-    <a href="login.html">Connexion</a>
-  </div>
-</aside>
+<main class="page">
+  <section class="panel" id="content">Chargement…</section>
+</main>
 
+<footer class="footer">© 2025 DGPE</footer>
 
-<section class="page">
-  <div class="panel">
-    <h1>Détail du module</h1>
-    <p>Contenu à venir pour la page Détail du module.</p>
-  </div>
-</section>
+<script type="module">
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+const supabase = createClient("https://rwjyxmzdwdddjaeghpae.supabase.co",
+"sb_publishable_GbNaiadaYRtF0WhOjiPp2w_ww7jVANw");
 
+const id = new URLSearchParams(location.search).get("id");
+const { data } = await supabase.from("modules").select("*").eq("id", id).single();
 
-<footer class="footer">© 2025 DGPE – Direction Générale du Portefeuille de l’État</footer>
-<script src="./app.js"></script>
+content.innerHTML = `
+  <h2>${data.titre}</h2>
+  <p>${data.resume || ""}</p>
+  <p><strong>Domaine :</strong> ${data.domaine || ""}</p>
+`;
+</script>
+
 </body>
 </html>
